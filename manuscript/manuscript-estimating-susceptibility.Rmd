@@ -7,13 +7,31 @@ output: pdf_document
 ---
 
 
+# Abstract
+
 # Introduction
+
+Epidemics of communicable diseases place a huge burden on public health infrastructures across the world. Advanced warnings of increases in disease incidence can help public health authorities allocate resources more effectively and mitigate the impact of epidemics. In some settings, multiple different pathogens or multiple strains of a single pathogen compete to infect susceptible individuals in a population. This competition can drive systems into complex and chaotic dynamics [Rohani?]. Observed data from these multi-pathogen systems has proved difficult to analyze effectively and efficiently, due in large part to the complexity of the interactions between pathogens. 
+
+Infectious disease dynamics at the population level are driven by the aggregate interactions of susceptible and infectious individuals. These interactions are often represented using compartmental models, such as the Susceptible - Infectious - Recovered, or SIR, model. These theoretical models of disease transmission allow an individual in a population to be in one state at any particular time and define possible individual paths through the disease system. 
+
+A central challenge in fitting observed data to any theoretical model of infectious disease transmission is accurately estimating the largely unobservable population of individuals who are susceptible to infection. This challenge is intensified in systems with multiple pathogens, where cross-reactivity (e.g. temporary cross-immunity or antibody dependent enhancement) may directly impact susceptibility. 
+
+Compartmental models of disease spread may be represented mathematically by differential equations, and have been for close to 100 years [Kermack McKendrick]. By studing different possible parameterizations of these models, either numerically (via simulation) or theoretically, we may gain insights into the complex dynamics of real-world disease systems. 
+
+A number of recent papers have succeeded in drawing inference about parameters that govern single-pathogen systems [Shrestha, Ferrari, King, Weitz, ...]. However extending these frameworks to settings with multi-pathogen, multivariate time-series data has proven difficult. Some work has shown through simulation studies that cross-reactive interactions in multi-pathogen systems may give rise to these complex dynamics [@Koelle:2006kf; others from Reich TSIR paper]. And very few published papers in the literature have presented results from fitting multi-pathogen models to real (i.e. not simulated) multi-pathogen time-series data [Reich, Shrestha, Goldstein, ...].
+
+In this manuscript, we will present three different statistical frameworks that may be used to infer the susceptible fraction from aggregate time-series data and incorporate these estimates of population susceptibility into models of disease transmission. 
+
+
+
+
+
+Additionally, I will propose a new approach to accounting for the susceptible population over time based on observed case data. This method provides a simple way to include complex dynamics in otherwise standard statistical time-series models. Using over four decades of surveillance data on dengue fever infections from the Ministry of Public Health in Thailand, I will illustrate the ability of these methods to draw inference about mechanistic disease transmission models and predict the future spread of disease.
 
 Many infectious diseases are directly transmitted from infectious to susceptible individuals.  
 
-Infectious disease dynamics are characterized by the complex interactions of susceptible and infectious individuals in a population. These interactions are often represented using a compartmental model, such as the Susceptible - Infectious - Recovered, or SIR, model, which allows an individual in a population to be in one (or more) states at any particular time, and defines possible individual paths through the disease system. 
 
-These models of disease spread may be represented mathematically by differential equations, and have been for close to 100 years. By studing different possible parameterizations of these models, either numerically (via simulation) or theoretically, we may gain insights into the complex dynamics of real-world disease systems. 
 
 A classic formulation of infectious disease dynamics assumes that the number of new infectious individuals at time $t$ has a non-linear relationship with the number of infectious individals and susceptible individuals at the previous time step. 
 
@@ -21,7 +39,7 @@ Using SIR-style models of disease transmission to estimate parameters of interes
 
 In the past few decades, several frameworks for analyzing time-series data from these systems have been proposed, each with a different method for including and/or estimating susceptibility. An early example was the time-series SIR model [Finkenstadt and Grenfell], which used XXX. More recently, a framework for estimation of partially observed Markov processes [cite King et al] uses particle filtering and sequential monte carlo techniques to estimate susceptibility., and an endemic-epidemic framework [Held et al.], to name a few.  
 
-In some infectious disease settings, multiple different pathogens or multiple strains of a single pathogen compete to infect susceptible individuals in a population. This competition can drive systems into complex and chaotic dynamics[[ref]]. Observed data from these multi-pathogen systems has proved difficult to analyze effectively and efficiently, due in large part to the complexity of the interactions between pathogens. 
+
 
 Complex mechanistic models of disease systems require computationally intensive algorithms to fit to real data, and can have prohibitively long computation time [cite sourya]. Simpler more phenomenological models for the disease process can often be fitted to data using less intensive statistical methods. But these simple methods may suffer from bias (since the disease model may not be accurately specified) and may not appropriately account for all of the uncertainty and noise in the disease system. Finding the right balance of model complexity so that these models are conceptually and computationally tractable while remaining faithful to the biological system in question is an area of research that remains largely unexplored.[[cite fisheries pubs from grant]] Work in this area could have a large impact in infectious disease modeling research and potentially in other fields that generate multivariate time series data with complex interactions.
 
