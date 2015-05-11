@@ -21,7 +21,30 @@ Compartmental models of disease spread may be represented mathematically by diff
 
 A number of recent papers have succeeded in drawing inference about parameters that govern single-pathogen systems [Shrestha, Ferrari, King, Weitz, ...]. However extending these frameworks to settings with multi-pathogen, multivariate time-series data has proven difficult. Some work has shown through simulation studies that cross-reactive interactions in multi-pathogen systems may give rise to these complex dynamics [@Koelle:2006kf; others from Reich TSIR paper]. And very few published papers in the literature have presented results from fitting multi-pathogen models to real (i.e. not simulated) multi-pathogen time-series data [Reich, Shrestha, Goldstein, ...].
 
-In this manuscript, we will present three different statistical frameworks that may be used to infer the susceptible fraction from aggregate time-series data and incorporate these estimates of population susceptibility into models of disease transmission. 
+In this manuscript, we will present and analyze three different statistical approaches that may be used to infer the susceptible fraction from aggregate time-series data and incorporate these estimates of population susceptibility into models of disease transmission. We provide an overview of the three models discussed in Table 1, listed top to bottom in order of decreasing biological and computational complexity.
+
+The first approach provides a method to fit data to a complex underlying SIR model. This framework uses sequential Monte Carlo and particle filtering approaches described in detail elsewhere. Fitting this model with this computational framework would require extensive computational time as well as human time to monitor interim results and make adjustments. The second approach extends the TSIR methodology proposed by Finkenstadt and Grenfell (2000) to account for multi-pathogen dynamics. This approach sacrifices some biological complexity to make the model more computationally tractable using either Markov Chain Monte Carlo (MCMC) or a two-stage analysis with Generalized Linear Models (henceforth "two-stage GLM"). Our group has published analyses using this method, and is continuing work to develop and fit models using this framework. The third approach is the simplest and fasted of any of the methods proposed. It uses a simply calculated covariate, a "memory" term, to approximate a measure of susceptibility in the population. This approach uses a simple GLM.
+
+In comparing the characteristics and performance of these three methods side-by-side, we define the scope of the strengths and weaknesses of each of the approaches and identify areas where future work would yield the strongest gains for modelers. 
+
+```{r table1, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+require(pander)
+panderOptions('table.split.table', Inf)
+set.caption("Overview of methods for fitting four-pathogen models.")
+
+tab1 <- "
+model  | method             | runtime    | $p$     | $\\beta(t)$   | $\\delta$      | $\\chi$       
+SIR    | particle filtering | 1-6 months | >100    | $\\checkmark$ | $\\checkmark$   | $\\checkmark$  
+TSIR   | two-stage GLM      | 1 day      | 30-60   | $\\checkmark$ | $\\checkmark$   | ($\\checkmark$)  
+memory | GLM                | 1 minute   | <10     | $\\checkmark$ | ($\\checkmark$) |                
+"
+df <- read.delim(textConnection(tab1),header=FALSE,sep="|",strip.white=TRUE,stringsAsFactors=FALSE)
+names(df) <- unname(as.list(df[1,])) # put headers on
+df <- df[-1,] # remove first row
+row.names(df)<-NULL
+pander(df, style = 'rmarkdown')
+
+```
 
 
 
